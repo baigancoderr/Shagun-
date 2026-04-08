@@ -1,0 +1,148 @@
+.quality-section{
+  width:100%;
+  background:#0b0502;
+  display:flex;
+  justify-content:center;
+
+}
+
+.quality-container{
+  width:95%;
+  border:1px solid;
+  border-image-source: linear-gradient(94.1deg,#000000 -1.23%,#FF6B35 43.31%,#000000 96.28%);
+  border-image-slice:1;
+  border-radius:12px;
+  padding:20px 20px;
+  text-align:center;
+}
+
+/* Heading */
+
+.quality-title{
+  font-family:Inter;
+  font-weight:500;
+  font-size:55px;
+  color:white;
+}
+
+.quality-title span{
+  color:#FF6B35;
+}
+
+.quality-desc{
+
+  font-size:24px;
+  line-height:32px;
+  color:#d1d5db;
+  max-width:750px;
+  margin-left:auto;
+  margin-right:auto;
+}
+.quality-grid{
+  
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+  justify-items:center;
+ 
+  width: 90%;
+  margin: auto;
+  margin-top:40px;
+   margin-bottom: 20px;
+}
+
+/* Card */
+
+.quality-card{
+  background:black;
+  border-radius:15px;
+  padding:20px;
+  border:1px solid rgba(255,107,53,0.21);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:12px;
+  max-width:280px;
+  width:100%;
+}
+
+.quality-icon{
+  width:22px;
+  height:22px;
+  color:white;
+}
+
+.quality-text{
+  color:white;
+  font-size:18px;
+  font-weight:400;
+  text-align:center;
+}
+
+/* Responsive */
+
+@media (max-width:1024px){
+  .quality-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media (max-width:600px){
+
+  .quality-title{
+    font-size:36px;
+  }
+
+  .quality-desc{
+    font-size:18px;
+    line-height:26px;
+  }
+
+  .quality-grid{
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+  }
+
+  .quality-card{
+    padding:22px;
+  }
+}
+/* Mobile */
+
+@media (max-width:480px){
+
+  .quality-title{
+    font-size:32px;
+  }
+
+  .quality-desc{
+    font-size:16px;
+    line-height:24px;
+  }
+
+  /* 1 column grid */
+  .quality-grid{
+    grid-template-columns:1fr;
+    gap:12px;
+  }
+
+  /* icon left text right */
+  .quality-card{
+    flex-direction:row;
+    justify-content:flex-start;
+    align-items:center;
+    text-align:left;
+    padding:18px 20px;
+    gap:14px;
+  }
+
+  .quality-icon{
+    width:20px;
+    height:20px;
+  }
+
+  .quality-text{
+    font-size:16px;
+  }
+
+}

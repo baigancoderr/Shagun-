@@ -1,0 +1,182 @@
+.faq-section {
+  width: 100%;
+  padding: 60px 20px;
+  background: #ffffff;
+  font-family: "DM Sans", sans-serif;
+}
+
+.faq-title {
+  font-family: DM Sans;
+    font-weight: 500;
+    font-size: 44px;
+    line-height: 130%;
+    text-align: center;
+    vertical-align: middle;
+    text-transform: capitalize;
+  margin-bottom: 50px;
+  color: #000;
+}
+
+/* Container */
+.faq-container {
+  max-width: 1240px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Item */
+.faq-item {
+  display: flex;
+  background: #ffffff;
+  border-radius: 16px;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0px 4px 4px 0px #00000040;
+  min-height: 135px;
+}
+
+/* Blue left bar */
+.faq-left-bar {
+  width: 11px;
+  background: #3334E3;
+}
+
+/* Content */
+.faq-content {
+  padding: 18px 22px;
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  flex-direction: column; 
+}
+
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.faq-question h4 {
+  font-family: DM Sans;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 140%;
+    text-transform: capitalize;
+  color: #121212;
+}
+
+.faq-icon svg {
+  font-size: 14px;
+  font-family: 400;
+  color: #939AA4;
+  transition: transform 0.3s ease;
+}
+
+.faq-item.active .faq-icon svg {
+  transform: rotate(0deg);
+}
+
+
+/* Answer */
+.faq-answer {
+  margin-top: 10px;
+  font-family: DM Sans;
+font-weight: 400;
+font-size: 18px;
+line-height: 160%;
+  color: #939AA4;
+  max-width: 1036px;
+
+}
+
+/* Active state */
+.faq-item.active .faq-left-bar {
+  background: #3b4cff;
+}
+
+@media (max-width: 1024px) {
+    .faq-section {
+        width: 100%;
+        padding: 50px 10px;
+    }
+
+    .faq-item {
+        min-height: auto;
+    }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .faq-title {
+    font-size: 28px;
+  }
+
+  .faq-question h4 {
+    font-size: 16px;
+  }
+
+  .faq-answer {
+    font-size: 16px;
+  }
+}
+/* ================= SCROLL ANIMATION ================= */
+
+.scroll-animate {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.9s ease;
+}
+
+.scroll-animate.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-up {
+  transform: translateY(-30px);
+}
+
+.scroll-up.active {
+  transform: translateY(0);
+}
+
+/* Delay helpers */
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.2s; }
+.delay-3 { transition-delay: 0.3s; }
+.delay-4 { transition-delay: 0.4s; }
+.delay-5 { transition-delay: 0.5s; }
+
+/* ================= FAQ HOVER ================= */
+
+.faq-item {
+  transition: all 0.35s ease;
+}
+
+.faq-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.15);
+}
+
+/* ================= SMOOTH ACCORDION ================= */
+
+.faq-answer-wrapper {
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.45s ease;
+}
+
+.faq-answer-wrapper.open {
+  max-height: 300px;
+}
+
+/* Icon rotate */
+.faq-icon svg {
+  transition: transform 0.35s ease;
+}
+
+.faq-item.active .faq-icon svg {
+  transform: rotate(180deg);
+}

@@ -1,0 +1,139 @@
+import React, { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useMutation } from "@tanstack/react-query";
+import { adminApi } from "../../Service/adminApi"; // Adjust the import path as needed
+
+const UserParentUpdate = () => {
+  const [formData, setFormData] = useState({
+    userId: "",
+    newSponsorId: "",
+  });
+  const [errors, setErrors] = useState({});
+
+  const { mutate: updateSponsor, isPending } = useMutation({
+    mutationFn: (data) => adminApi.updateUserSponsor(data), // Assuming adminApi has an updateUserSponsor method; adjust if needed
+    onSuccess: (res) => {
+      toast.success(res?.data?.message || "Sponsor updated successfully!");
+      setFormData({ userId: "", newSponsorId: "" });
+      setErrors({});
+    },
+    onError: (err) => {
+      const message =
+        err?.response?.data?.message ||
+        err?.data?.message ||
+        err?.message ||
+        "Failed to update sponsor.";
+      toast.error(message);
+    },
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setErrors({ ...errors, [e.target.name]: "" });
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+    if (!formData.userId.trim()) {
+      newErrors.userId = "User ID is required";
+    }
+    if (!formData.newSponsorId.trim()) {
+      newErrors.newSponsorId = "New Sponsor ID is required";
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      updateSponsor({
+        user_id: formData.userId.trim(),
+        new_sponsor_id: formData.newSponsorId.trim(),
+      });
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-[#fff] flex items-center justify-center px-4">
+      <div className="w-full max-w-lg bg-white rounded-xl shadow-lg p-8 border border-gray-200">
+        <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">
+          Update User Sponsor
+        </h2>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div>
+            <label
+              htmlFor="userId"
+              className="block text-[16px] font-medium text-[#103944] mb-1"
+            >
+              User ID
+            </label>
+            <input
+              id="userId"
+              type="text"
+              name="userId"
+              value={formData.userId}
+              onChange={handleChange}
+              className={`w-full border ${errors.userId ? "border-red-500" : "border-gray-300"
+                } px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-300 shadow-sm hover:shadow-md`}
+              disabled={isPending}
+              required
+              placeholder="Enter User ID (e.g., URWA00004)"
+              aria-invalid={!!errors.userId}
+              aria-describedby={errors.userId ? "userId-error" : undefined}
+            />
+            {errors.userId && (
+              <p id="userId-error" className="text-red-500 text-xs mt-1">
+                {errors.userId}
+              </p>
+            )}
+          </div>
+
+          <div>
+            <label
+              htmlFor="newSponsorId"
+              className="block text-[16px] font-medium text-[#103944] mb-1"
+            >
+              New Sponsor ID
+            </label>
+            <input
+              id="newSponsorId"
+              type="text"
+              name="newSponsorId"
+              value={formData.newSponsorId}
+              onChange={handleChange}
+              className={`w-full border ${errors.newSponsorId ? "border-red-500" : "border-gray-300"
+                } px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-300 shadow-sm hover:shadow-md`}
+              disabled={isPending}
+              required
+              placeholder="Enter New Sponsor ID (e.g., URWA00003)"
+              aria-invalid={!!errors.newSponsorId}
+              aria-describedby={errors.newSponsorId ? "newSponsorId-error" : undefined}
+            />
+            {errors.newSponsorId && (
+              <p id="newSponsorId-error" className="text-red-500 text-xs mt-1">
+                {errors.newSponsorId}
+              </p>
+            )}
+          </div>
+
+          <div className="text-center">
+            <button
+              type="submit"
+              className="w-[160px] mt-4 bg-[#103944] hover:bg-[#0e9d52] text-white font-medium py-2 px-4 rounded-md transition-all duration-300 shadow-sm hover:shadow-md hover:scale-105 disabled:opacity-50 disabled:scale-100"
+              disabled={isPending}
+              aria-label="Submit update"
+            >
+              {isPending ? "Submitting..." : "Update Sponsor"}
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <ToastContainer />
+    </div>
+  );
+};
+
+export default UserParentUpdate;

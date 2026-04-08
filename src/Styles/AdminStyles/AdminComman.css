@@ -1,0 +1,11 @@
+/* Add to your global CSS or Tailwind config */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to right bottom, #ff6600, #E3090D);
+  border-radius: 4px;
+}
+
+
+
