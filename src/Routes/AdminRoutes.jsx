@@ -62,6 +62,9 @@ const PrivateRoute = () => {
 const AdminRoutes = () => {
   return (
     <Routes>
+
+        <Route path="/" element={<Navigate to="/admin/dashboard" replace />} />
+
       {/* ✅ Public Auth Routes with Lazy + Loader */}
       <Route
         path="/admin/login"

@@ -133,7 +133,7 @@ const UserDropdown = () => {
         className="flex items-center gap-2 text-[#103944] font-semibold focus:outline-none"
       >
         <img src={EMicon} alt="icon" className="h-6" />
-        <span className="uppercase">Hi, Shagun Pro</span>
+        <span className="uppercase">Hi, Cipera</span>
         <FaChevronDown className={`transition-transform duration-200 ${isOpen ? "rotate-180" : "rotate-0"}`} />
       </button>
 

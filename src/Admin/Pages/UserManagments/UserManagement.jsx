@@ -97,50 +97,49 @@ const UserManagement = () => {
   });
 
   // Column definitions – corrected spelling + proper username/user_id mapping
-  const allColumnKeys = [
-    "role",
-    "id",
-    "referredBy",
-    "userId", // ← will show real username
-    "email",
-    "depositWallet",
-    "myWallet",
-    "referralWallet",
-    "principalWallet", // ← corrected spelling
-    "emgtWallet",
-    "reward",
-    "walletAddress",
-    "investmentPackage",
-    "totalEarnings",
-    "registrationDate",
-    "paidStatus",
-    "status",
-    "blockStatus",
-    "usdtWithdraw",
-    "roi",
-  ];
-  const COLUMN_LABELS = {
-    role: "Role",
-    id: "User ID", // ← will show user_id (URWA00011 etc.)
-    referredBy: "Sponsor ID",
-    userId: "Username", // ← will show real username
-    email: "Email Address",
-    depositWallet: "Deposit Wallet",
-    myWallet: "Main Wallet",
-    referralWallet: "Referral Wallet",
-    principalWallet: "Principal Wallet",
-    emgtWallet: "URWA Wallet",
-    reward: "Reward Status",
-    walletAddress: "Wallet Address",
-    investmentPackage: "Package",
-    totalEarnings: "Total Earnings",
-    registrationDate: "Registered On",
-    paidStatus: "Payment Status",
-    status: "Account Status",
-    blockStatus: "Block Status",
-    usdtWithdraw: "USDT Withdraw",
-    roi: "ROI Status",
-  };
+ // Updated columns for your current API data
+const allColumnKeys = [
+  "role",
+  // "_id",
+  "userId",           // CPRD0MRSG etc.
+  "username",
+  "name",
+  "telegramId",
+  "referredBy",
+  "referralCode",
+  "totalReferrals",
+  "referralEarnings",
+  "walletAddress",
+  "walletBalance",
+  "totalEarnings",
+  "totalInvested",
+  "activePackage",
+  "dailyIncome",
+  "isActive",
+  "createdAt",
+];
+
+const COLUMN_LABELS = {
+  role: "Role",
+  // _id: "Mongo ID",
+  userId: "User ID",
+  username: "Telegram Username",
+  name: "Name",
+  telegramId: "Telegram ID",
+  referredBy: "Referred By",
+  referralCode: "Referral Code",
+  totalReferrals: "Total Referrals",
+  referralEarnings: "Referral Earnings",
+  walletAddress: "Wallet Address",
+  walletBalance: "Wallet Balance",
+  totalEarnings: "Total Earnings",
+  totalInvested: "Total Invested",
+  activePackage: "Active Package",
+  dailyIncome: "Daily Income",
+  isActive: "Status",
+  createdAt: "Registered On",
+};
+
   const keyMapping = {
     role: ["role"],
     id: ["user_id"], // User ID column → user_id
@@ -163,86 +162,43 @@ const UserManagement = () => {
     usdtWithdraw: ["usdtWithdraw", "withdrawEnabled"],
     roi: ["roi", "returnOnInvestment", "roiEnabled"],
   };
-  // Normalize data
-  const normalizedUsers = useMemo(() => {
-    return fetchData.map((user, index) => {
-      const normalized = { missingFields: new Set() };
-      allColumnKeys.forEach((key) => {
-        if (key === "userId") {
-          // Special handling for username: concatenate first_name and last_name if both exist
-          const firstName = user["first_name"];
-          const lastName = user["last_name"];
-          let value = "N/A";
-          if (firstName && lastName) {
-            value = `${firstName} ${lastName}`;
-          } else if (firstName) {
-            value = firstName;
-          } else if (lastName) {
-            value = lastName;
-          }
-          normalized[key] = value;
-          if (value === "N/A") {
-            normalized.missingFields.add(key);
-          }
-        } else {
-          const possibleKeys = keyMapping[key];
-          let value;
-          for (const k of possibleKeys) {
-            if (k.includes(".")) {
-              const parts = k.split(".");
-              let current = user;
-              let found = true;
-              for (const part of parts) {
-                if (current && typeof current === "object" && part in current) {
-                  current = current[part];
-                } else {
-                  found = false;
-                  break;
-                }
-              }
-              if (found && current !== undefined && typeof current !== "object") {
-                value = current;
-                break;
-              }
-            } else if (user[k] !== undefined && typeof user[k] !== "object") {
-              value = user[k];
-              break;
-            }
-          }
-          // Default values
-          if (value === undefined || value === null) {
-            if (["myWallet", "emgtWallet", "principalWallet", "depositWallet", "totalEarnings"].includes(key)) {
-              value = 0;
-            } else if (key === "status") {
-              value = "Inactive";
-            } else if (key === "reward") {
-              value = "No Reward";
-            } else if (key === "paidStatus") {
-              value = "Unpaid";
-            } else if (key === "blockStatus") {
-              value = "Blocked";
-            } else if (["usdtWithdraw", "roi"].includes(key)) {
-              value = "Off";
-            } else {
-              value = "N/A";
-            }
-            normalized.missingFields.add(key);
-          } else if (key === "status" && typeof value === "boolean") {
-            value = value ? "Active" : "Inactive";
-          } else if (key === "reward" && typeof value === "boolean") {
-            value = value ? "Reward" : "No Reward";
-          } else if (key === "blockStatus" && typeof value === "boolean") {
-            value = value ? "Blocked" : "Unblocked";
-          } else if (["usdtWithdraw", "roi"].includes(key) && typeof value === "boolean") {
-            value = value ? "On" : "Off";
-          }
-          normalized[key] = value;
-        }
-      });
-      normalized.id = normalized.id !== "N/A" ? normalized.id : `temp-${index + 1}`;
-      return normalized;
+  
+  // Simple normalization for new data structure
+const normalizedUsers = useMemo(() => {
+  return fetchData.map((user, index) => {
+    const normalized = {};
+
+    allColumnKeys.forEach((key) => {
+      let value = user[key];
+
+      if (value === undefined || value === null) {
+        value = key === "isActive" ? "Inactive" : "N/A";
+      }
+
+      // Format boolean status
+      if (key === "isActive") {
+        value = value ? "Active" : "Inactive";
+      }
+
+      // Format date
+      if (key === "createdAt" && value) {
+        value = new Date(value).toLocaleDateString("en-IN", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+      }
+
+      normalized[key] = value;
     });
-  }, [fetchData]);
+
+    return normalized;
+  });
+}, [fetchData]);
+
+
   // Quick login (unchanged)
   const handleQuickLogin = async (user) => {
     try {
@@ -309,45 +265,44 @@ const UserManagement = () => {
   };
   const formatColumnName = (key) => COLUMN_LABELS[key] || key;
   const getBadgeStyle = (value, field) => {
-    const base = styles.badge.base;
-    const green = `${base} ${styles.badge.green}`;
-    const red = `${base} ${styles.badge.red}`;
-    if (field === "paidStatus") return value === "Paid" ? green : red;
-    if (field === "status") return value === "Active" ? green : red;
-    if (field === "blockStatus") return value === "Unblocked" ? green : red;
-    if (field === "usdtWithdraw" || field === "roi") return value === "On" ? green : red;
-    if (field === "reward") return value === "Reward" ? green : red;
-    return base;
-  };
+  const base = styles.badge.base;
+  const green = `${base} ${styles.badge.green}`;
+  const red = `${base} ${styles.badge.red}`;
+
+  if (field === "isActive") {
+    return value === "Active" ? green : red;
+  }
+  return base;
+};
   const columns = useMemo(() => {
     const dataColumns = [
       { accessorKey: "sNo", header: "S.No.", cell: ({ row }) => (pagination.pageIndex * pagination.pageSize) + row.index + 1 },
       ...allColumnKeys.map((key) => ({
         accessorKey: key,
         header: formatColumnName(key),
-        cell: ({ getValue }) => {
-          const value = getValue() ?? "N/A";
-          if (["paidStatus", "status", "blockStatus", "usdtWithdraw", "roi", "reward"].includes(key)) {
-            return <span className={getBadgeStyle(value, key)}>{value}</span>;
-          }
-          return String(value);
-        },
+       cell: ({ getValue }) => {
+  const value = getValue() ?? "N/A";
+  if (["isActive"].includes(key)) {   // changed
+    return <span className={getBadgeStyle(value, key)}>{value}</span>;
+  }
+  return String(value);
+},
       })),
     ];
     return [
       ...dataColumns,
-      {
-        id: "quickLogin",
-        header: "Quick Login",
-        cell: ({ row }) => (
-          <button
-            onClick={() => handleQuickLogin(row.original)}
-            className={styles.button.primary}
-          >
-            Login
-          </button>
-        ),
-      },
+      // {
+      //   id: "quickLogin",
+      //   header: "Quick Login",
+      //   cell: ({ row }) => (
+      //     <button
+      //       onClick={() => handleQuickLogin(row.original)}
+      //       className={styles.button.primary}
+      //     >
+      //       Login
+      //     </button>
+      //   ),
+      // },
       {
         id: "action",
         header: "Action",
@@ -356,7 +311,7 @@ const UserManagement = () => {
             onClick={() => handleEdit(row.original)}
             className="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600"
           >
-            Edit
+            View
           </button>
         ),
       },
@@ -710,7 +665,7 @@ const UserManagement = () => {
             <button onClick={cancelEdit} className={styles.button.close}>
               <FaTimes />
             </button>
-            <h3 className="text-2xl font-bold mb-4 text-[#103944]">Edit User</h3>
+            <h3 className="text-2xl font-bold mb-4 text-[#103944]">View User</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {allColumnKeys.map(
                 (key) =>

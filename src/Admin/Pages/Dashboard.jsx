@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { adminApi } from "../Service/adminApi";
+import { FaUserCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import {
   FaUserCheck,
@@ -175,69 +176,69 @@ const Dashboard = () => {
         gradient: "linear-gradient(135deg,#dd5e89,#f7bb97)",
         link: "/admin/income-management/referrel-income",
       },
-      {
-        title: "Total URWAWallet Balance",
-        value: dashboardData.totalUserEMGTWalletBalance
-          ? `${Number(dashboardData.totalUserEMGTWalletBalance).toLocaleString()}`
-          : " 0",
-        icon: FaHandHoldingUsd,
-        gradient: "linear-gradient(135deg,#dd5e89,#f7bb97)",
-        link: "/admin/user-management?wallet=urwa",
-      },
-      {
-        title: "Total ROI Distribute",
-        value: dashboardData.totalRoiDistributed
-          ? `$${Number(dashboardData.totalRoiDistributed).toLocaleString()}`
-          : "$0",
-        icon: FaDollarSign,
-        gradient: "linear-gradient(135deg,#21d397,#7d5fff)",
-        link: "/admin/income-management/daily-roi-income",
-      },
-      {
-        title: "Total Level Income Distribute",
-        value: dashboardData.totalLevelRewardDistributed
-          ? `$${Number(dashboardData.totalLevelRewardDistributed).toLocaleString()}`
-          : "$0",
-        icon: FaDollarSign,
-        gradient: "linear-gradient(135deg,#21d397,#7d5fff)",
-        link: "/admin/income-management/level-income-rewards",
-      },
-      {
-        title: "Total Referral Reward Distributed",
-        value: dashboardData.totalReferralRewardDistributed
-          ? `$${Number(dashboardData.totalReferralRewardDistributed).toLocaleString()}`
-          : "$0",
-        icon: FaDollarSign,
-        gradient: "linear-gradient(135deg,#21d397,#7d5fff)",
-        link: "/admin/income-management/referrel-income",
-      },
-      {
-        title: "Total Binary Reward Distributed",
-        value: dashboardData.totalBinaryDistributed
-          ? `$${Number(dashboardData.totalBinaryDistributed).toLocaleString()}`
-          : "$0",
-        icon: FaDollarSign,
-        gradient: "linear-gradient(135deg,#21d397,#7d5fff)",
-        link: "//admin/income-management/binary-income-report",
-      },
-      {
-        title: "Total Share Distributed",
-        value: dashboardData.totalShareDistributed
-          ? `${Number(dashboardData.totalShareDistributed).toLocaleString()}`
-          : "0",
-        icon: FaDollarSign,
-        gradient: "linear-gradient(135deg,#21d397,#7d5fff)",
-        link: "/admin/income-management/leadership-share-report",
-      },
-      {
-        title: "Total Leadership Bonus Distributed",
-        value: dashboardData.totalBonusDistributed
-          ? `$${Number(dashboardData.totalBonusDistributed).toLocaleString()}`
-          : "$0",
-        icon: FaDollarSign,
-        gradient: "linear-gradient(135deg,#21d397,#7d5fff)",
-        link: "/admin/income-management/leadership-income-report",
-      },
+      // {
+      //   title: "Total URWAWallet Balance",
+      //   value: dashboardData.totalUserEMGTWalletBalance
+      //     ? `${Number(dashboardData.totalUserEMGTWalletBalance).toLocaleString()}`
+      //     : " 0",
+      //   icon: FaHandHoldingUsd,
+      //   gradient: "linear-gradient(135deg,#dd5e89,#f7bb97)",
+      //   link: "/admin/user-management?wallet=urwa",
+      // },
+      // {
+      //   title: "Total ROI Distribute",
+      //   value: dashboardData.totalRoiDistributed
+      //     ? `$${Number(dashboardData.totalRoiDistributed).toLocaleString()}`
+      //     : "$0",
+      //   icon: FaDollarSign,
+      //   gradient: "linear-gradient(135deg,#21d397,#7d5fff)",
+      //   link: "/admin/income-management/daily-roi-income",
+      // },
+      // {
+      //   title: "Total Level Income Distribute",
+      //   value: dashboardData.totalLevelRewardDistributed
+      //     ? `$${Number(dashboardData.totalLevelRewardDistributed).toLocaleString()}`
+      //     : "$0",
+      //   icon: FaDollarSign,
+      //   gradient: "linear-gradient(135deg,#21d397,#7d5fff)",
+      //   link: "/admin/income-management/level-income-rewards",
+      // },
+      // {
+      //   title: "Total Referral Reward Distributed",
+      //   value: dashboardData.totalReferralRewardDistributed
+      //     ? `$${Number(dashboardData.totalReferralRewardDistributed).toLocaleString()}`
+      //     : "$0",
+      //   icon: FaDollarSign,
+      //   gradient: "linear-gradient(135deg,#21d397,#7d5fff)",
+      //   link: "/admin/income-management/referrel-income",
+      // },
+      // {
+      //   title: "Total Binary Reward Distributed",
+      //   value: dashboardData.totalBinaryDistributed
+      //     ? `$${Number(dashboardData.totalBinaryDistributed).toLocaleString()}`
+      //     : "$0",
+      //   icon: FaDollarSign,
+      //   gradient: "linear-gradient(135deg,#21d397,#7d5fff)",
+      //   link: "//admin/income-management/binary-income-report",
+      // },
+      // {
+      //   title: "Total Share Distributed",
+      //   value: dashboardData.totalShareDistributed
+      //     ? `${Number(dashboardData.totalShareDistributed).toLocaleString()}`
+      //     : "0",
+      //   icon: FaDollarSign,
+      //   gradient: "linear-gradient(135deg,#21d397,#7d5fff)",
+      //   link: "/admin/income-management/leadership-share-report",
+      // },
+      // {
+      //   title: "Total Leadership Bonus Distributed",
+      //   value: dashboardData.totalBonusDistributed
+      //     ? `$${Number(dashboardData.totalBonusDistributed).toLocaleString()}`
+      //     : "$0",
+      //   icon: FaDollarSign,
+      //   gradient: "linear-gradient(135deg,#21d397,#7d5fff)",
+      //   link: "/admin/income-management/leadership-income-report",
+      // },
       {
         title: "Withdraw Done",
         value: dashboardData.totalWithdrawDone ?? 0,
@@ -252,33 +253,33 @@ const Dashboard = () => {
         gradient: "linear-gradient(135deg,#f7971e,#ffd200)",
         link: "/admin/payout-management/withdrawals",
       },
-      {
-        title: "Total Swaped Amount",
-        value: dashboardData.totalSwapedAmount
-          ? `$${Number(dashboardData.totalSwapedAmount).toLocaleString()}`
-          : "$0",
-        icon: FaDollarSign,
-        gradient: "linear-gradient(135deg,#f7971e,#ffd200)",
-        link: "/admin/swap-management/report",
-      },
-      {
-        title: "Total Swap Charge",
-        value: dashboardData.totalSwapChargeCollected
-          ? `$${Number(dashboardData.totalSwapChargeCollected).toLocaleString()}`
-          : "$0",
-        icon: FaDollarSign,
-        gradient: "linear-gradient(135deg,#f7971e,#ffd200)",
-        link: "/admin/swap-management/report",
-      },
-      {
-        title: "Total Transaction Charge",
-        value: dashboardData.totalTransactionChargeCollected
-          ? `$${Number(dashboardData.totalTransactionChargeCollected).toLocaleString()}`
-          : "$0",
-        icon: FaDollarSign,
-        gradient: "linear-gradient(135deg,#21d397,#7d5fff)",
-        link: "/admin/payout-management/withdrawals",
-      },
+      // {
+      //   title: "Total Swaped Amount",
+      //   value: dashboardData.totalSwapedAmount
+      //     ? `$${Number(dashboardData.totalSwapedAmount).toLocaleString()}`
+      //     : "$0",
+      //   icon: FaDollarSign,
+      //   gradient: "linear-gradient(135deg,#f7971e,#ffd200)",
+      //   link: "/admin/swap-management/report",
+      // },
+      // {
+      //   title: "Total Swap Charge",
+      //   value: dashboardData.totalSwapChargeCollected
+      //     ? `$${Number(dashboardData.totalSwapChargeCollected).toLocaleString()}`
+      //     : "$0",
+      //   icon: FaDollarSign,
+      //   gradient: "linear-gradient(135deg,#f7971e,#ffd200)",
+      //   link: "/admin/swap-management/report",
+      // },
+      // {
+      //   title: "Total Transaction Charge",
+      //   value: dashboardData.totalTransactionChargeCollected
+      //     ? `$${Number(dashboardData.totalTransactionChargeCollected).toLocaleString()}`
+      //     : "$0",
+      //   icon: FaDollarSign,
+      //   gradient: "linear-gradient(135deg,#21d397,#7d5fff)",
+      //   link: "/admin/payout-management/withdrawals",
+      // },
     ],
     [dashboardData]
   );
@@ -495,9 +496,9 @@ const Dashboard = () => {
                         <th className="px-5 py-3">Username</th>
                         <th className="px-5 py-3">Referral Code</th>
                         <th className="px-5 py-3">Referred By</th>
-                        <th className="px-5 py-3">Email</th>
+                        {/* <th className="px-5 py-3">Email</th> */}
                         <th className="px-5 py-3">Joining Date</th>
-                        {/* <th className="px-5 py-3">Action</th> */}
+                        <th className="px-5 py-3">Action</th>
                       </tr>
                     </thead>
                     <tbody className="text-gray-700">
@@ -511,11 +512,11 @@ const Dashboard = () => {
                           <td className="px-5 py-4">{user.username || "N/A"}</td>
                           <td className="px-5 py-4">{user.referralCode || "N/A"}</td>
                           <td className="px-5 py-4">{user.referredBy || "N/A"}</td>
-                          <td className="px-5 py-4">{user.email || "N/A"}</td>
+                          {/* <td className="px-5 py-4">{user.email || "N/A"}</td> */}
                           <td className="px-5 py-4 whitespace-nowrap">
                             {user.createdAt ? new Date(user.createdAt).toLocaleString() : "N/A"}
                           </td>
-                          {/* <td className="px-5 py-4">
+                          <td className="px-5 py-4">
                             <button
                               onClick={() =>
                                 setSelectedUser({
@@ -531,9 +532,9 @@ const Dashboard = () => {
                               }
                               className="bg-[#2298D3] hover:bg-[#0e9d52] text-white text-xs px-4 py-1.5 rounded-full shadow-md transition"
                             >
-                              View Profile
+                               Profile
                             </button>
-                          </td> */}
+                          </td>
                         </tr>
                       ))}
                     </tbody>
@@ -583,24 +584,20 @@ const Dashboard = () => {
                 &times;
               </button>
               <div className="bg-[#2298D3] p-6 flex flex-col items-center text-white">
-                <img
-                  src={selectedUser.image}
-                  alt={selectedUser.name}
-                  className="w-24 h-24 rounded-full border-4 border-white shadow-md mb-4"
-                />
+              <FaUserCircle className="w-24 h-24 text-white mb-4" />
                 <h2 className="text-xl font-semibold">{selectedUser.name}</h2>
-                <span
+                {/* <span
                   className={`mt-1 px-3 py-1 rounded-full text-sm font-medium ${selectedUser.status === "Member" ? "bg-white text-[#2298D3]" : "bg-red-100 text-red-600"
                     }`}
                 >
                   {selectedUser.status}
-                </span>
+                </span> */}
               </div>
               <div className="p-6 space-y-4 text-sm text-[#103944]">
                 <InfoRow label="Referred By" value={selectedUser.referredBy} />
-                <InfoRow label="User ID" value={selectedUser.id} />
+                <InfoRow label="User ID" value={selectedUser.userId} />
                 <InfoRow label="User Name" value={selectedUser.name} />
-                <InfoRow label="Email ID" value={selectedUser.email} />
+                {/* <InfoRow label="Email ID" value={selectedUser.email} /> */}
                 {/* <InfoRow label="Contact No." value={selectedUser.phone} /> */}
                 <InfoRow label="Joining Date" value={selectedUser.joiningDate} />
                 {/* <InfoRow label="Address" value={selectedUser.address} /> */}

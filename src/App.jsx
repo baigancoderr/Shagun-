@@ -1,9 +1,9 @@
 
 import './App.css'
 import { BrowserRouter } from 'react-router-dom';
-import CommanRoutes from './Routes/CommanRoutes';
+// import CommanRoutes from './Routes/CommanRoutes';
 import AdminRoutes from './Routes/AdminRoutes';
-import UserRoutes from './Routes/UserRoutes';
+// import UserRoutes from './Routes/UserRoutes';
 // import { ToastContainer } from 'react-toastify';
 import { Toaster } from "react-hot-toast";
 
@@ -31,8 +31,8 @@ function App() {
         {/* <ToastContainer /> */}
 
         <AdminRoutes  />
-        <CommanRoutes />
-        <UserRoutes />
+        {/* <CommanRoutes />
+        <UserRoutes /> */}
       </BrowserRouter>
 
 

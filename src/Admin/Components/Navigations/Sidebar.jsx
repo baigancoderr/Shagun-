@@ -34,44 +34,44 @@ const navItems = [
     name: "User Management",
     subItems: [
       { name: "All User", path: "/admin/user-management", pro: false },
-      {
-        name: "Set User Rank",
-        path: "user-management/update-rank",
-        pro: false,
-      },
-      {
-        name: "Set User Parent",
-        path: "user-management/update-sponsor",
-        pro: false,
-      },
+      // {
+      //   name: "Set User Rank",
+      //   path: "user-management/update-rank",
+      //   pro: false,
+      // },
+      // {
+      //   name: "Set User Parent",
+      //   path: "user-management/update-sponsor",
+      //   pro: false,
+      // },
     ],
   },
 
 
 
 
-  {
-    icon: <FaWallet />,
-    name: "Loyalty Points",
-    subItems: [
-      { name: "Send LoyaltyPoints", path: "/admin/Airdrop/Airdrop", pro: false },
-    ],
-  },
+  // {
+  //   icon: <FaWallet />,
+  //   name: "Loyalty Points",
+  //   subItems: [
+  //     { name: "Send LoyaltyPoints", path: "/admin/Airdrop/Airdrop", pro: false },
+  //   ],
+  // },
 
-    {
-    icon: <FaWallet />,
-    name: "Shopping Points",
-    subItems: [
-      { name: "Send ShoppingPoints", path: "/admin/ShoppingPoint/ShoppingPoint", pro: false },
-    ],
-  },
+  //   {
+  //   icon: <FaWallet />,
+  //   name: "Shopping Points",
+  //   subItems: [
+  //     { name: "Send ShoppingPoints", path: "/admin/ShoppingPoint/ShoppingPoint", pro: false },
+  //   ],
+  // },
 
 
-  {
-    icon: <FaDollarSign />,
-    name: "Set Token Price",
-    path: "/admin/set-token-price",
-  },
+  // {
+  //   icon: <FaDollarSign />,
+  //   name: "Set Token Price",
+  //   path: "/admin/set-token-price",
+  // },
   // {
   //   icon: <FaChartPie />,
   //   name: "Trade Management",
@@ -140,36 +140,36 @@ const navItems = [
     icon: <FaHandHoldingUsd />,
     name: "Income Management",
     subItems: [
-      {
-        name: "Daily Roi Income",
-        path: "/admin/income-management/daily-roi-income",
-        pro: false,
-      },
+      // {
+      //   name: "Daily Roi Income",
+      //   path: "/admin/income-management/daily-roi-income",
+      //   pro: false,
+      // },
       {
         name: "Referral Income",
         path: "/admin/income-management/referrel-income",
         pro: false,
       },
-      {
-        name: "Level Income Rewards",
-        path: "/admin/income-management/level-income-rewards",
-        pro: false,
-      },
-      {
-        name: "Binary Income Report",
-        path: "/admin/income-management/binary-income-report",
-        pro: false,
-      },
-      {
-        name: "Leadership Share Distribution",
-        path: "/admin/income-management/leadership-share-report",
-        pro: false,
-      },
-      {
-        name: "Leadership Income Report",
-        path: "/admin/income-management/leadership-income-report",
-        pro: false,
-      },
+      // {
+      //   name: "Level Income Rewards",
+      //   path: "/admin/income-management/level-income-rewards",
+      //   pro: false,
+      // },
+      // {
+      //   name: "Binary Income Report",
+      //   path: "/admin/income-management/binary-income-report",
+      //   pro: false,
+      // },
+      // {
+      //   name: "Leadership Share Distribution",
+      //   path: "/admin/income-management/leadership-share-report",
+      //   pro: false,
+      // },
+      // {
+      //   name: "Leadership Income Report",
+      //   path: "/admin/income-management/leadership-income-report",
+      //   pro: false,
+      // },
 
       // { name: "Bonanza Rewards", path: "/admin/income-management/bonanza-rewards", pro: false },
     ],
@@ -187,25 +187,25 @@ const navItems = [
     ],
   },
 
-  {
-    icon: <FaHistory />,
-    name: "KYC",
-    subItems: [
-      {
-        name: "KYC Report",
-        path: "/admin/reports/kyc-report",
-        pro: false,
-      },
-    ],
-  },
+  // {
+  //   icon: <FaHistory />,
+  //   name: "KYC",
+  //   subItems: [
+  //     {
+  //       name: "KYC Report",
+  //       path: "/admin/reports/kyc-report",
+  //       pro: false,
+  //     },
+  //   ],
+  // },
 
-  {
-    icon: <FaExchangeAlt />,
-    name: "Swap Management",
-    subItems: [
-      { name: "Report", path: "/admin/swap-management/report", pro: false },
-    ],
-  },
+  // {
+  //   icon: <FaExchangeAlt />,
+  //   name: "Swap Management",
+  //   subItems: [
+  //     { name: "Report", path: "/admin/swap-management/report", pro: false },
+  //   ],
+  // },
   {
     icon: <IoMdSettings />,
     name: "Settings",
