@@ -96,81 +96,31 @@ const InvestmentReport = () => {
 
   const columns = useMemo(() => [
     { accessorKey: "sr", header: "S.No.", cell: ({ row }) => pagination.pageIndex * pagination.pageSize + row.index + 1 },
-    { accessorKey: "user_id", header: "User ID" },
-    { accessorKey: "productId", header: "Product ID" },
-    { accessorKey: "quantity", header: "QTY", cell: ({ getValue }) => Number(getValue() || 0) },
+    { accessorKey: "userId", header: "User ID" },
     { accessorKey: "amount", header: "Amount", cell: ({ getValue }) => `$${Number(getValue() || 0).toFixed(2)}` },
+    { accessorKey: "sgnPriceAtInvestment", header: "SGN Price", cell: ({ getValue }) => `$${Number(getValue() || 0).toFixed(6)}` },
+    { accessorKey: "totalReturn", header: "Total Return", cell: ({ getValue }) => Number(getValue() || 0).toFixed(6) },
+    { accessorKey: "dailyIncome", header: "Daily Income", cell: ({ getValue }) => Number(getValue() || 0).toFixed(6) },
+    { accessorKey: "claimedTokens", header: "Claimed Tokens", cell: ({ getValue }) => Number(getValue() || 0).toFixed(6) },
+    {
+      accessorKey: "startDate",
+      header: "Start Date",
+      cell: ({ getValue }) => getValue() ? new Date(getValue()).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }) : "N/A",
+    },
+    {
+      accessorKey: "endDate",
+      header: "End Date",
+      cell: ({ getValue }) => getValue() ? new Date(getValue()).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }) : "N/A",
+    },
     {
       accessorKey: "status",
       header: "Status",
       cell: ({ getValue }) => {
         const status = getValue();
-        const color = status === "ACTIVE" ? "bg-green-800 text-green-300" 
-                     : status === "PENDING" ? "bg-yellow-800 text-yellow-300" 
+        const color = status === "active" ? "bg-green-800 text-green-300" 
+                     : status === "completed" ? "bg-blue-800 text-blue-300" 
                      : "bg-red-800 text-red-300";
         return <span className={`px-3 py-1 rounded text-xs font-semibold ${color}`}>{status}</span>;
-      },
-    },
-    {
-      accessorKey: "transactionHash",
-      header: "Transaction Hash",
-      cell: ({ getValue }) => {
-        const hash = getValue();
-        return (
-          <div className="flex items-center gap-2">
-            <span className="font-mono text-xs">{hash ? `${hash.substring(0, 12)}...` : "—"}</span>
-            {hash && <button onClick={() => copyToClipboard(hash, "Transaction Hash")}><FaCopy size={14} /></button>}
-          </div>
-        );
-      },
-    },
-    {
-      accessorKey: "walletAddress",
-      header: "Wallet Address",
-      cell: ({ getValue }) => {
-        const addr = getValue();
-        return (
-          <div className="flex items-center gap-2">
-            <span className="font-mono text-xs">{addr ? `${addr.substring(0, 12)}...` : "—"}</span>
-            {addr && <button onClick={() => copyToClipboard(addr, "Wallet Address")}><FaCopy size={14} /></button>}
-          </div>
-        );
-      },
-    },
-    {
-      accessorKey: "createdAt",
-      header: "Created At",
-      cell: ({ getValue }) => getValue() ? new Date(getValue()).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }) : "N/A",
-    },
-    {
-      accessorKey: "approvedAt",
-      header: "Approved At",
-      cell: ({ getValue }) => getValue() ? new Date(getValue()).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }) : "—",
-    },
-    {
-      accessorKey: "rejectedAt",
-      header: "Rejected At",
-      cell: ({ getValue }) => getValue() ? new Date(getValue()).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }) : "—",
-    },
-    {
-      id: "actions",
-      header: "Actions",
-      cell: ({ row }) => {
-        const item = row.original;
-        if (item.status !== "PENDING") return <span className="text-gray-400 text-xs">—</span>;
-
-        return (
-          <div className="flex gap-2">
-            <button onClick={() => setModalData({ id: item._id, productId: item.productId, action: "approve", note: "" })}
-              className="px-3 py-1 bg-green-600 hover:bg-green-700 text-white text-xs font-medium rounded-lg transition">
-              Approve
-            </button>
-            <button onClick={() => setModalData({ id: item._id, productId: item.productId, action: "disapprove", note: "" })}
-              className="px-3 py-1 bg-red-600 hover:bg-red-700 text-white text-xs font-medium rounded-lg transition">
-              Reject
-            </button>
-          </div>
-        );
       },
     },
   ], [pagination.pageIndex, pagination.pageSize]);
@@ -221,22 +171,21 @@ const InvestmentReport = () => {
       doc.text("Investment Report", 14, 15);
 
       const headers = [
-        "S.No.", "User ID", "Product ID", "QTY", "Amount", "Status",
-        "Transaction Hash", "Wallet Address", "Created At", "Approved At", "Rejected At"
+        "S.No.", "User ID", "Amount", "SGN Price", "Total Return", "Daily Income", 
+        "Claimed Tokens", "Start Date", "End Date", "Status"
       ];
 
       const rows = allData.map((item, idx) => [
         idx + 1,
-        item.user_id || "N/A",
-        item.productId || "N/A",
-        Number(item.quantity || 0),
+        item.userId || "N/A",
         `$${Number(item.amount || 0).toFixed(2)}`,
+        `$${Number(item.sgnPriceAtInvestment || 0).toFixed(6)}`,
+        Number(item.totalReturn || 0).toFixed(6),
+        Number(item.dailyIncome || 0).toFixed(6),
+        Number(item.claimedTokens || 0).toFixed(6),
+        item.startDate ? new Date(item.startDate).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }) : "N/A",
+        item.endDate ? new Date(item.endDate).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }) : "N/A",
         item.status || "N/A",
-        item.transactionHash ? item.transactionHash.substring(0, 20) + "..." : "—",
-        item.walletAddress ? item.walletAddress.substring(0, 20) + "..." : "—",
-        item.createdAt ? new Date(item.createdAt).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }) : "N/A",
-        item.approvedAt ? new Date(item.approvedAt).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }) : "—",
-        item.rejectedAt ? new Date(item.rejectedAt).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }) : "—",
       ]);
 
       autoTable(doc, {
@@ -264,22 +213,19 @@ const InvestmentReport = () => {
 
       const excelData = allData.map((item, idx) => ({
         "S.No.": idx + 1,
-        "User ID": item.user_id || "N/A",
-        "Product ID": item.productId || "N/A",
-        "QTY": Number(item.quantity || 0),
+        "User ID": item.userId || "N/A",
         "Amount": `$${Number(item.amount || 0).toFixed(2)}`,
-        "Status": item.status || "N/A",
-        "Transaction Hash": item.transactionHash || "—",
-        "Wallet Address": item.walletAddress || "—",
-        "Created At": item.createdAt 
-          ? new Date(item.createdAt).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }) 
+        "SGN Price": `$${Number(item.sgnPriceAtInvestment || 0).toFixed(6)}`,
+        "Total Return": Number(item.totalReturn || 0).toFixed(6),
+        "Daily Income": Number(item.dailyIncome || 0).toFixed(6),
+        "Claimed Tokens": Number(item.claimedTokens || 0).toFixed(6),
+        "Start Date": item.startDate 
+          ? new Date(item.startDate).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }) 
           : "N/A",
-        "Approved At": item.approvedAt 
-          ? new Date(item.approvedAt).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }) 
-          : "—",
-        "Rejected At": item.rejectedAt 
-          ? new Date(item.rejectedAt).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }) 
-          : "—",
+        "End Date": item.endDate 
+          ? new Date(item.endDate).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }) 
+          : "N/A",
+        "Status": item.status || "N/A",
       }));
 
       const wb = XLSX.utils.book_new();

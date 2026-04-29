@@ -44,12 +44,11 @@ const DailyRoiIncome = () => {
   const currentPage = pagination.pageIndex + 1;
 
   const columns = useMemo(() => [
-    { accessorKey: "sno", header: "S.No.", cell: ({ row }) => pagination.pageIndex * 10 + row.index + 1 },
-    { accessorKey: "user_id", header: "Username" },
-    { accessorKey: "stakeId", header: "Package ID" },
-    { accessorKey: "stakeAmount", header: "Amount (USD)", cell: ({ getValue }) => `$${Number(getValue() || 0).toFixed(2)}` },
-    { accessorKey: "dailyROI", header: "ROI (%)", cell: ({ getValue }) => `${Number(getValue() || 0).toFixed(2)}%` },
-    { accessorKey: "amount", header: "ROI Amount (USD)", cell: ({ getValue }) => `$${Number(getValue() || 0).toFixed(2)}` },
+    { accessorKey: "sr", header: "S.No.", cell: ({ row }) => pagination.pageIndex * 10 + row.index + 1 },
+    { accessorKey: "user_id", header: "User ID" },
+    { accessorKey: "amount", header: "Amount", cell: ({ getValue }) => `$${Number(getValue() || 0).toFixed(2)}` },
+    { accessorKey: "totalTokens", header: "Total Tokens", cell: ({ getValue }) => Number(getValue() || 0).toFixed(6) },
+    { accessorKey: "dailyROI", header: "Daily ROI", cell: ({ getValue }) => Number(getValue() || 0).toFixed(6) },
     { accessorKey: "distributionDate", header: "Date", cell: ({ getValue }) => getValue() ? new Date(getValue()).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }) : "N/A" },
   ], [pagination.pageIndex]);
 
@@ -89,16 +88,15 @@ const DailyRoiIncome = () => {
       if (!allData.length) return toast.error("No data to export");
       const doc = new jsPDF({ orientation: "portrait", unit: "pt" });
       doc.text("Daily ROI Income Report", 14, 10);
-      const headers = ["S.No.", "Username", "Package ID", "Amount (USD)", "ROI (%)", "ROI Amount (USD)", "Date"];
+      const headers = ["S.No.", "User ID", "Amount", "Total Tokens", "Daily ROI", "Date"];
       const chunkSize = 1000;
       for (let i = 0; i < allData.length; i += chunkSize) {
         const rows = allData.slice(i, i + chunkSize).map((item, idx) => [
           i + idx + 1,
           item.user_id || "",
-          item.stakeId || "",
-          `$${Number(item.stakeAmount || 0).toFixed(2)}`,
-          `${Number(item.dailyROI || 0).toFixed(2)}%`,
           `$${Number(item.amount || 0).toFixed(2)}`,
+          Number(item.totalTokens || 0).toFixed(6),
+          Number(item.dailyROI || 0).toFixed(6),
           item.distributionDate ? new Date(item.distributionDate).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }) : "N/A"
         ]);
         autoTable(doc, {
@@ -124,12 +122,11 @@ const DailyRoiIncome = () => {
       if (!allData.length) return toast.error("No data to export");
       const excelData = allData.map((item, idx) => ({
         "S.No.": idx + 1,
-        Username: item.user_id || "",
-        "Package ID": item.stakeId || "",
-        "Amount (USD)": `$${Number(item.stakeAmount || 0).toFixed(2)}`,
-        "ROI (%)": `${Number(item.dailyROI || 0).toFixed(2)}%`,
-        "ROI Amount (USD)": `$${Number(item.amount || 0).toFixed(2)}`,
-        Date: item.distributionDate ? new Date(item.distributionDate).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }) : "N/A",
+        "User ID": item.user_id || "",
+        "Amount": `$${Number(item.amount || 0).toFixed(2)}`,
+        "Total Tokens": Number(item.totalTokens || 0).toFixed(6),
+        "Daily ROI": Number(item.dailyROI || 0).toFixed(6),
+        "Date": item.distributionDate ? new Date(item.distributionDate).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }) : "N/A",
       }));
       const wb = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(excelData), "DailyROIIncome");

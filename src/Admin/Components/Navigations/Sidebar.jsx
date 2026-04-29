@@ -39,11 +39,11 @@ const navItems = [
       //   path: "user-management/update-rank",
       //   pro: false,
       // },
-      // {
-      //   name: "Set User Parent",
-      //   path: "user-management/update-sponsor",
-      //   pro: false,
-      // },
+      {
+        name: "Set User Parent",
+        path: "user-management/update-sponsor",
+        pro: false,
+      },
     ],
   },
 
@@ -81,7 +81,7 @@ const navItems = [
     icon: <FaWallet />,
     name: "Users Deposit",
     subItems: [
-      { name: "Deposit", path: "/admin/user-deposit/deposit", pro: false },
+      // { name: "Deposit", path: "/admin/user-deposit/deposit", pro: false },
       {
         name: "Report",
         path: "/admin/user-deposit/deposit-report",
@@ -99,13 +99,13 @@ const navItems = [
   // },
   {
     icon: <FaChartPie />,
-    name: "Product Management",
+    name: "Investment Report",
     subItems: [
-      {
-        name: "Add Product",
-        path: "/admin/property-management/add-property-plan",
-        pro: false,
-      },
+      // {
+      //   name: "Add Product",
+      //   path: "/admin/property-management/add-property-plan",
+      //   pro: false,
+      // },
       {
         name: "Report",
         path: "/admin/property-Report/user-property-plans-report",
@@ -140,11 +140,11 @@ const navItems = [
     icon: <FaHandHoldingUsd />,
     name: "Income Management",
     subItems: [
-      // {
-      //   name: "Daily Roi Income",
-      //   path: "/admin/income-management/daily-roi-income",
-      //   pro: false,
-      // },
+      {
+        name: "Daily claim Token",
+        path: "/admin/income-management/daily-roi-income",
+        pro: false,
+      },
       {
         name: "Referral Income",
         path: "/admin/income-management/referrel-income",
@@ -175,17 +175,17 @@ const navItems = [
     ],
   },
 
-  {
-    icon: <FaHistory />,
-    name: "Reports",
-    subItems: [
-      {
-        name: "Rank Achievement",
-        path: "/admin/reports/rank-achievement-report",
-        pro: false,
-      },
-    ],
-  },
+  // {
+  //   icon: <FaHistory />,
+  //   name: "Reports",
+  //   subItems: [
+  //     {
+  //       name: "Rank Achievement",
+  //       path: "/admin/reports/rank-achievement-report",
+  //       pro: false,
+  //     },
+  //   ],
+  // },
 
   // {
   //   icon: <FaHistory />,
@@ -206,18 +206,18 @@ const navItems = [
   //     { name: "Report", path: "/admin/swap-management/report", pro: false },
   //   ],
   // },
-  {
-    icon: <IoMdSettings />,
-    name: "Settings",
-    subItems: [
-      {
-        name: "Set Referral Income",
-        path: "/admin/settings/set-referral-income",
-        pro: false,
-      },
-      // { name: "Set Level Income", path: "/admin/settings/set-level-income", pro: false },
-    ],
-  },
+  // {
+  //   icon: <IoMdSettings />,
+  //   name: "Settings",
+  //   subItems: [
+  //     {
+  //       name: "Set Referral Income",
+  //       path: "/admin/settings/set-referral-income",
+  //       pro: false,
+  //     },
+  //     // { name: "Set Level Income", path: "/admin/settings/set-level-income", pro: false },
+  //   ],
+  // },
   // {
   //   icon: <FaCog />,
   //   name: "Platform Settings",

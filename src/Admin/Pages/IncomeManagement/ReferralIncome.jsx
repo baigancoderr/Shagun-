@@ -59,7 +59,7 @@ const ReferralIncome = () => {
       cell: ({ row }) => pagination.pageIndex * 10 + row.index + 1,
     },
     { 
-      accessorKey: "userId.user_id", 
+      accessorKey: "referrerId", 
       header: "User ID" 
     },
     { accessorKey: "referredId", header: "Referred ID" },
@@ -124,7 +124,7 @@ const ReferralIncome = () => {
       for (let i = 0; i < allData.length; i += chunkSize) {
         const rows = allData.slice(i, i + chunkSize).map((item, idx) => [
           i + idx + 1,
-          item.userId?.user_id || "N/A",
+          item.referrerId || "N/A",
           item.referredId || "N/A",
           item.investmentAmount || "N/A",
           item.level || "N/A",

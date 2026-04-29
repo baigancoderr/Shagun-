@@ -149,15 +149,15 @@ const Dashboard = () => {
         gradient: "linear-gradient(135deg,#dd5e89,#f7bb97)",
         link: "/admin/user-management?wallet=deposit",
       },
-      {
-        title: "Total MyWallet Balance",
-        value: dashboardData.totalUserMyWalletBalance
-          ? `$${Number(dashboardData.totalUserMyWalletBalance).toLocaleString()}`
-          : "$0",
-        icon: FaHandHoldingUsd,
-        gradient: "linear-gradient(135deg,#dd5e89,#f7bb97)",
-        link: "/admin/user-management?wallet=mywallet",
-      },
+      // {
+      //   title: "Total MyWallet Balance",
+      //   value: dashboardData.totalUserMyWalletBalance
+      //     ? `$${Number(dashboardData.totalUserMyWalletBalance).toLocaleString()}`
+      //     : "$0",
+      //   icon: FaHandHoldingUsd,
+      //   gradient: "linear-gradient(135deg,#dd5e89,#f7bb97)",
+      //   link: "/admin/user-management?wallet=mywallet",
+      // },
       // {
       //   title: "Total PrincipalWallet Balance",
       //   value: dashboardData.totalUserPrincipalWalletBalance
@@ -169,8 +169,8 @@ const Dashboard = () => {
       // },
       {
         title: "Total ReferralWallet Balance",
-        value: dashboardData.totalUserReferralWalletBalance
-          ? `$${Number(dashboardData.totalUserReferralWalletBalance).toLocaleString()}`
+        value: dashboardData.totalReferralRewardDistributed
+          ? `$${Number(dashboardData.totalReferralRewardDistributed).toLocaleString()}`
           : "$0",
         icon: FaHandHoldingUsd,
         gradient: "linear-gradient(135deg,#dd5e89,#f7bb97)",
@@ -251,6 +251,33 @@ const Dashboard = () => {
         value: dashboardData.totalWithdrawAmount ?? 0,
         icon: FaHourglassHalf,
         gradient: "linear-gradient(135deg,#f7971e,#ffd200)",
+        link: "/admin/payout-management/withdrawals",
+      },
+      {
+        title: "Locked Token",
+        value: dashboardData.lockedToken 
+          ? Number(dashboardData.lockedToken).toFixed(4) 
+          : "0",
+        icon: FaHourglassHalf,
+        gradient: "linear-gradient(135deg,#667eea,#764ba2)",
+        link: "/admin/property-Report/user-property-plans-report",
+      },
+      {
+        title: "Claimed Token",
+        value: dashboardData.claimedToken 
+          ? Number(dashboardData.claimedToken).toFixed(4) 
+          : "0",
+        icon: FaGift,
+        gradient: "linear-gradient(135deg,#11998e,#38ef7d)",
+        link: "/admin/property-Report/user-property-plans-report",
+      },
+      {
+        title: "Fee Collected",
+        value: dashboardData.feeCollected 
+          ? `$${Number(dashboardData.feeCollected).toFixed(2)}` 
+          : "$0",
+        icon: FaDollarSign,
+        gradient: "linear-gradient(135deg,#eb3349,#f45c43)",
         link: "/admin/payout-management/withdrawals",
       },
       // {

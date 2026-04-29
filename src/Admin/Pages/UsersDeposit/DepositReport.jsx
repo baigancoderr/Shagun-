@@ -40,11 +40,10 @@ const DepositReport = () => {
           accessorKey: "sNo",
           header: "S.No.",
           cell: ({ row }) => row.index + 1,
-          
         },
         {
-          accessorKey: "userId.username",
-          header: "username",
+          accessorKey: "userId.userId",
+          header: "User ID",
           cell: ({ getValue }) => getValue() || "N/A",
         },
         {
@@ -68,21 +67,41 @@ const DepositReport = () => {
             );
           },
         },
-       
         {
-          accessorKey: "currencyType",
-          header: "Currency Type",
+          accessorKey: "currency",
+          header: "Currency",
           cell: ({ getValue }) => getValue() || "N/A",
         },
         {
           accessorKey: "amount",
-          header: "Amount",
+          header: "Requested Amount",
           cell: ({ getValue }) => `$${Number(getValue() || 0).toFixed(2)}`,
         },
         {
-          accessorKey: "walletType",
-          header: "Wallet Type",
-          cell: ({ getValue }) => getValue() || "N/A",
+          accessorKey: "creditedAmount",
+          header: "Credited Amount",
+          cell: ({ getValue }) => `$${Number(getValue() || 0).toFixed(2)}`,
+        },
+        {
+          accessorKey: "depositAddress",
+          header: "Deposit Address",
+          cell: ({ getValue }) => {
+            const value = getValue() || "";
+            const truncatedValue = value.length > 10 ? `${value.slice(0, 6)}...${value.slice(-4)}` : value;
+            return (
+              <div className="flex items-center">
+                <span className="truncate max-w-[150px]">{truncatedValue}</span>
+                <button
+                  onClick={() => handleCopy(value)}
+                  className="ml-2 text-blue-500 hover:text-blue-700"
+                  aria-label={`Copy deposit address ${value}`}
+                  title="Copy"
+                >
+                  <Clipboard size={16} />
+                </button>
+              </div>
+            );
+          },
         },
         {
           accessorKey: "createdAt",
@@ -92,7 +111,11 @@ const DepositReport = () => {
         {
           accessorKey: "status",
           header: "Status",
-          cell: ({ getValue }) => getValue() || "N/A",
+          cell: ({ getValue }) => {
+            const status = getValue() || "N/A";
+            const statusClass = status === "completed" ? "text-green-600" : "text-yellow-600";
+            return <span className={statusClass}>{status}</span>;
+          },
         },
       ],
       []
