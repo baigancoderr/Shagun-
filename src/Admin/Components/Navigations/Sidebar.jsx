@@ -199,13 +199,13 @@ const navItems = [
   //   ],
   // },
 
-  // {
-  //   icon: <FaExchangeAlt />,
-  //   name: "Swap Management",
-  //   subItems: [
-  //     { name: "Report", path: "/admin/swap-management/report", pro: false },
-  //   ],
-  // },
+  {
+    icon: <FaExchangeAlt />,
+    name: "Swap Management",
+    subItems: [
+      { name: "Report", path: "/admin/swap-management/report", pro: false },
+    ],
+  },
   // {
   //   icon: <IoMdSettings />,
   //   name: "Settings",

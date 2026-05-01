@@ -39,7 +39,7 @@ export const adminApi = {
   getLeadershipIncomeReport: (page, limit, startDate, endDate, user_id) =>
     axiosClient.get(`/admin/history/leadership-income-history?page=${page}&limit=${limit}&startDate=${startDate}&endDate=${endDate}&user_id=${user_id}`),
     getAdminReport: (swapReportType) =>
-    axiosClient.get(`/admin/history/swap-report`, { params: { type: swapReportType } }),
+    axiosClient.get(`/admin/swap-history`, { params: { type: swapReportType } }),
 
     //Kyc Report
   getAllKYC: (page, limit, startDate, endDate, user_id) =>

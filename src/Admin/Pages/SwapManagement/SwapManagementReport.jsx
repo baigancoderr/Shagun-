@@ -35,7 +35,7 @@ const SwapManagementReport = () => {
           throw new Error("Invalid response: swaps array not found");
         }
         allSwaps = [...allSwaps, ...swapsPage];
-        totalPages = responseData?.pagination?.pages || 1;
+        totalPages = responseData?.pagination?.totalPages || 1;
         page++;
       }
       console.log("Total Swaps Fetched:", allSwaps.length);
@@ -62,29 +62,39 @@ const SwapManagementReport = () => {
           cell: ({ row }) => row.index + 1,
         },
         {
-          accessorKey: "user_id",
+          accessorKey: "userId",
           header: "User ID",
           cell: ({ getValue }) => getValue() || "N/A",
         },
         {
-          accessorKey: "usdtAmount",
-          header: "USDT Amount",
-          cell: ({ getValue }) => `$${Number(getValue() || 0).toFixed(2)}`,
+          accessorKey: "swapId",
+          header: "Swap ID",
+          cell: ({ getValue }) => getValue() || "N/A",
         },
         {
-          accessorKey: "emgtAmount",
-          header: "Token Amount",
+          accessorKey: "fromWallet",
+          header: "From Wallet",
+          cell: ({ getValue }) => getValue() || "N/A",
+        },
+        {
+          accessorKey: "toWallet",
+          header: "To Wallet",
+          cell: ({ getValue }) => getValue() || "N/A",
+        },
+        {
+          accessorKey: "fromAmount",
+          header: "From Amount",
           cell: ({ getValue }) => Number(getValue() || 0).toFixed(2),
         },
         {
-          accessorKey: "tokenPrice",
-          header: "Token Price",
-          cell: ({ getValue }) => `$${Number(getValue() || 0).toFixed(2)}`,
+          accessorKey: "toAmount",
+          header: "To Amount",
+          cell: ({ getValue }) => Number(getValue() || 0).toFixed(2),
         },
         {
-          accessorKey: "currencyType",
-          header: "Currency Type",
-          cell: ({ getValue }) => getValue() || "N/A",
+          accessorKey: "priceUsed",
+          header: "Price Used",
+          cell: ({ getValue }) => getValue() ? `$${Number(getValue()).toFixed(6)}` : "N/A",
         },
         {
           accessorKey: "status",

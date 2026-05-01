@@ -248,7 +248,7 @@ const Dashboard = () => {
       },
       {
         title: "Withdraw Pending",
-        value: dashboardData.totalWithdrawAmount ?? 0,
+        value: dashboardData.totalWithdrawPending  ?? 0,
         icon: FaHourglassHalf,
         gradient: "linear-gradient(135deg,#f7971e,#ffd200)",
         link: "/admin/payout-management/withdrawals",
