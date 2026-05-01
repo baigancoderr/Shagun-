@@ -1,6 +1,6 @@
 export const appConfig = {
-  baseURL: "https://backend.cipera.net/",
-  frontendURL: "https://admin.cipera.net/",
+  baseURL: "https://backend.cipera.net",
+  frontendURL: "https://admin.cipera.net",
   chainID: 56n,
   defaultReferral: "SGN00001",
   DEPOSIT_ADDRESS :'0x1a0aeacBF68369B6591dE050eEC10226b32e59A8',
