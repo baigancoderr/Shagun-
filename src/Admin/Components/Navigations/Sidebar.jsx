@@ -39,11 +39,11 @@ const navItems = [
       //   path: "user-management/update-rank",
       //   pro: false,
       // },
-      {
-        name: "Set User Parent",
-        path: "user-management/update-sponsor",
-        pro: false,
-      },
+      // {
+      //   name: "Set User Parent",
+      //   path: "user-management/update-sponsor",
+      //   pro: false,
+      // },
     ],
   },
 
